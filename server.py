@@ -1,5 +1,5 @@
 import SimpleHTTPServer
-from base64 import decodestring
+import json
 import cgi
 import SocketServer
 
@@ -19,18 +19,16 @@ class MyHandler (SimpleHTTPServer.SimpleHTTPRequestHandler):
 
 		request = cgiFieldStorageToDict(form)
 		requestType = request["type"]
-		print "hi"
-		print requestType
 		if requestType == "send":
 			clientIP = self.client_address[0]
-			userCodeMap[clientIP] = request['code']
-			print userCodeMap
+			code = request['code']
+			userCodeMap[clientIP] = code
+			self.wfile.write("true")
 		elif requestType == "receive":
-			print "receive"
+			self.wfile.write(json.dumps(userCodeMap))
 
-		self.wfile.write("true")
-
-Handler = MyHandler
-httpd = SocketServer.TCPServer(("", PORT), Handler)
-print "serving at port", PORT
-httpd.serve_forever()
+if __name__ == "__main__":
+	Handler = MyHandler
+	httpd = SocketServer.TCPServer(("", PORT), Handler)
+	print "serving at port", PORT
+	httpd.serve_forever()
