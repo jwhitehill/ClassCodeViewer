@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ACE in Action</title>
+	<style type="text/css" media="screen">
+	    #editor { 
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	    }
+	</style>
+	<script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="editor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body onload="startPostThread()">
+
+<div id="editor">class Example {
+}</div>
+	    
+	<script>
+	    var editor = ace.edit("editor");
+	    //editor.setTheme("ace/theme/monokai");
+	    editor.getSession().setMode("ace/mode/java");
+	</script>
+</body>
+</html>
